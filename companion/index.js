@@ -20,7 +20,7 @@ companion.onwakeinterval = (event) => {
   notifyDevice();
 }
 if (companion.launchReasons.wokenUp) {
-  if (debug) console.log("Launch reason: companion has been #woke");
+  if (deBug) console.log("Launch reason: companion has been woke");
   notifyDevice();
 }
 
