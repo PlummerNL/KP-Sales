@@ -95,7 +95,7 @@ function fetchWeather() {
     if (deBug) console.log("fetchWeather");
     messaging.peerSocket.send({
                  key:"weather",
-                 api:"PUT IN YOUR OWM API KEY HERE"
+                 api:"PUT YOUR OWM API KEY HERE"
     });
   }
 }

@@ -15,15 +15,23 @@ const MILLISECONDS_PER_HOUR = 1000 * 60 * 60
 
 companion.wakeInterval = 0.25 * MILLISECONDS_PER_HOUR;
 
+companion.onwakeinterval = (event) => {
+  if (deBug) console.log("companion is already running; wake event fired.");
+  notifyDevice();
+}
 if (companion.launchReasons.wokenUp) {
-  // if (deBug) 
-  console.log("Woken up after a periodic timer fired");
+  if (debug) console.log("Launch reason: companion has been #woke");
+  notifyDevice();
+}
+
+function notifyDevice() {
   let data = {
     key: "awake",
     newValue: "now"
   };
-  sendVal(data);
+  sendVal(data);  
 }
+
 // Message socket opens
 messaging.peerSocket.onopen = () => {
   console.log("Companion Socket Open");
