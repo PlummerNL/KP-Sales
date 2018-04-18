@@ -1,0 +1,54 @@
+.defaultText {
+  font-size: 32;
+  font-family: System-Regular;
+  font-weight: regular;
+  text-length: 32;
+}
+
+.date {
+  font-size: 18;
+  font-family: System-Bold;  
+  fill: black; 
+  opacity: 1;
+  text-length: 32;
+  text-anchor: middle;
+  width: 70;
+}
+.temp {
+  font-size: 20;
+  font-family: System-Bold;  
+  fill: black; 
+  opacity: 1;
+  text-length: 32;
+  text-anchor: middle;
+  width: 50%;
+}
+.desc {
+  font-size: 18;
+  font-family: System-Bold;  
+  fill: black; 
+  opacity: 1;
+  text-length: 50;
+  text-anchor: middle;
+}
+.kplabels {
+  font-size: 18;
+  font-family: System-Bold;  
+  fill: green; 
+  opacity: 1;
+  text-length: 50;
+  text-anchor: middle;  
+}
+.kpinfo {
+  font-size: 18;
+  font-family: System-Bold;  
+  fill: black; 
+  opacity: 1;
+  text-length: 50;
+  text-anchor: middle;  
+}
+#background {
+  width: 100%;
+  height: 100%;
+  fill: #00BFFF;
+}

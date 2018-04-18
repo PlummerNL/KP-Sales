@@ -1,0 +1,39 @@
+<svg>
+  <rect id="background" x="0" y="0" width="100%" height="100%" opacity="1" fill="white" />
+  <image id="dial" href="dialbggs.png" x="0" y="0" width="250" height="250" opacity="1" fill="green"/>
+  <image id="frame" href="framebggs.png" x="0" y="0" width="100%" height="100%" opacity="1" fill="black"/>
+  <text id="temp" x="50%-49" y="30%" class="temp" />
+  <textarea id="description" x="50%-129" y="80" width="160" height="48" class="desc" />
+  <text id="dateview" class="date" x="170" y="134"/>
+  <text id="socketstatus" x="85" y="134" class="date" />
+  <textarea id="city" x="50%-129" y="145" width="160" height="48" display-align="after" class="desc" />
+  <text x="275" y="37" width="100" height="25" class="kplabels">Sales</text>  
+  <text x="275" y="65" width="100" height="25" class="kplabels">Balance</text>    
+  <text id="balance" x="275" y="85" width="100" height="25" class="kpinfo"/> 
+  <text x="275" y="110" width="80" height="25" class="kplabels">Next PO</text> 
+  <text id="nextpo" x="275" y="130" width="100" height="25" class="kpinfo"/> 
+  <text x="275" y="155" width="80" height="25" class="kplabels">PO date</text> 
+  <text id="podate" x="275" y="175" width="100" height="25" class="kpinfo"/>  
+  <text x="275" y="200" width="80" height="25" class="kplabels">Act.trials</text> 
+  <text id="trials" x="275" y="220" width="100" height="25" class="kpinfo"/>       
+  <!--- Clock code -->
+  <g id="hours" pointer-events="visible" transform="translate(125,50%)">
+    <rect x="$-4" y="-55" width="9" height="35" fill="#F83C40" class="handh" />
+    <rect x="$-7" y="-65" width="5" height="65" fill="#F83C40" class="handh"/>
+  </g>
+  
+  <g id="mins" pointer-events="visible" transform="translate(125,50%)">
+    <rect x="$-4" y="-82" width="9" height="60" fill="white" class="handm" />
+    <rect x="$-7" y="-90" width="5" height="90" fill="white" class="handm" />
+  </g>
+
+  <g id="secs" pointer-events="visible" transform="translate(125,50%)">
+    <rect x="$-2" y="-93" width="3" height="90" fill="#7FFF00" class="hands" />
+    <circle cx="$-2" cy="-75" r="5" fill="#7FFF00" class="hands" />
+  </g>
+  <circle cx="125" cy="50%+1" r="10" fill="#444444" />  
+
+  <!--- widgets-->
+
+  <rect id="clickme" x="0" y="0" width="100%" height="100%" opacity="0" pointer-events="visible" />
+</svg>
