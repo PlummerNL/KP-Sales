@@ -13,10 +13,16 @@ var lon;
 var apikey;
 const MILLISECONDS_PER_HOUR = 1000 * 60 * 60
 
-companion.wakeInterval = 0.5 * MILLISECONDS_PER_HOUR;
+companion.wakeInterval = 0.25 * MILLISECONDS_PER_HOUR;
 
 if (companion.launchReasons.wokenUp) {
-  if (deBug) console.log("Woken up after a periodic timer fired")
+  // if (deBug) 
+  console.log("Woken up after a periodic timer fired");
+  let data = {
+    key: "awake",
+    newValue: "now"
+  };
+  sendVal(data);
 }
 // Message socket opens
 messaging.peerSocket.onopen = () => {

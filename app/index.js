@@ -132,6 +132,10 @@ messaging.peerSocket.onmessage = evt => {
   let msg = evt.data;
 
   if (deBug) console.log(`App received: ${JSON.stringify(evt)}`);
+
+  if (evt.data.key === "awake") {
+    fetchKPay();
+  }
   if (evt.data.key === "bgcolor" && evt.data.newValue) {
     let color = util.stripQuotes(evt.data.newValue);
     if (deBug) console.log(`Setting background color: ${color}`);
