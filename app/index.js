@@ -27,7 +27,8 @@ var settingsKeys = [
   "showweather",
   "weatherinfo",
   "apikey",
-  "kpaydata"
+  "kpaydata",
+  "awake"
 ];
 var deBug=false;
 var outercolor="white";
@@ -51,6 +52,8 @@ var curBpm=0;
 var displayWeather=true;
 var apikey="0123456789abcdef0123456789abcdef";
 var saveCity="";
+var counters = {wakeCount: 0, wasRunningCount: 0};
+var showRealAwakes=true;
 
 var weekday=["Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat"];
 
@@ -134,6 +137,14 @@ messaging.peerSocket.onmessage = evt => {
   if (deBug) console.log(`App received: ${JSON.stringify(evt)}`);
 
   if (evt.data.key === "awake") {
+    if (value == "wasrunning") {
+      counters.wasRunningCount++
+    }
+    else {
+      counters.wakeCount++;
+    }
+
+    prefs.setItem("awake", counters);
     fetchKPay();
   }
   if (evt.data.key === "bgcolor" && evt.data.newValue) {
@@ -256,6 +267,11 @@ function getLocalStorage() {
   setWidgetColors();
 }
 function doSettings (key, value) {
+
+  if (key === "awake") {
+    counters = value;
+  }
+
   if (key === "bgcolor") {
     let color = value;
     if (deBug) console.log(`Setting spf background color: ${color}`);
@@ -334,6 +350,17 @@ function doSettings (key, value) {
     setKPay(value);
   }
 }
+
+document.onkeypress = function(e) {
+  if (deBug) console.log("Key pressed: " + e.key);
+  if (showRealAwakes){
+    showRealAwakes = false;
+  }
+  else {
+    showRealAwakes = true;
+  }
+}
+
 function setKPay(data) {
   var x = Number (data.balance);
   balance.text = parseFloat(Math.round(x * 100) / 100).toFixed(2);
@@ -417,6 +444,12 @@ function updateClock() {
 
   let datestring = weekday[day] + " " + date;
   dateView.text = datestring;
+  if (showRealAwakes) {
+    socketStatus.text = "ra " + counters.wakeCount;
+  }
+  else {
+    socketStatus.text = "wr " + counters.wasRunningCount;
+  }
 
   hourHand.groupTransform.rotate.angle = hoursToAngle(hours, mins);
   minHand.groupTransform.rotate.angle = minutesToAngle(mins);

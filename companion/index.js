@@ -17,17 +17,17 @@ companion.wakeInterval = 0.25 * MILLISECONDS_PER_HOUR;
 
 companion.onwakeinterval = (event) => {
   if (deBug) console.log("companion is already running; wake event fired.");
-  notifyDevice();
+  notifyDevice("wasrunning");
 }
 if (companion.launchReasons.wokenUp) {
   if (deBug) console.log("Launch reason: companion has been woke");
-  notifyDevice();
+  notifyDevice("wokeup");
 }
 
-function notifyDevice() {
+function notifyDevice(reason) {
   let data = {
     key: "awake",
-    newValue: "now"
+    newValue: reason
   };
   sendVal(data);  
 }
