@@ -7,4 +7,6 @@ Currently it is a sort of a shared test project. On iOS (iPhone X) the messaging
 
 On the previous version of the Fitbit app I have seen it being fired. On the current version of the Fitbit app the event is never fired.
 
+Tap the screen for a forced Kpay data refresh.
+
 Do not forget to grant Internet, Location and Background rights in the package.json.
