@@ -6,6 +6,7 @@ import document from "document";
 import userSettings from "user-settings";
 import { vibration } from "haptics";
 import * as prefs from "../common/shared_preferences";
+import { me as device } from "device";
 
 //import { memory } from "system";
 
@@ -14,6 +15,10 @@ import * as prefs from "../common/shared_preferences";
 //display.on = true;
 
 console.log("App Started");
+var versa=false;
+if (device.modelName == "Versa") {
+  versa=true;
+}
 var settingsKeys = [
   "bgcolor",
   "framecolor",
@@ -74,6 +79,7 @@ let city = document.getElementById("city");
 let balance = document.getElementById("balance");
 let nextpo = document.getElementById("nextpo");
 let podate = document.getElementById("podate");
+let podatelabel = document.getElementById("podatelabel");
 let trials = document.getElementById("trials");
 var weatherCount = 0;
 let socketStatus = document.getElementById("socketstatus");
@@ -98,9 +104,12 @@ function fetchWeather() {
     if (deBug) console.log("fetchWeather");
     messaging.peerSocket.send({
                  key:"weather",
-                 api:"PUT YOUR OWM API KEY HERE"
+                 api:"PUT IN YOUR OWM API KEY HERE"
     });
   }
+}
+function round(value) {
+  return (Math.round(value * 10) / 10).toFixed(1);
 }
 function setWeather(data)  {
   if (!displayWeather) {
@@ -109,15 +118,17 @@ function setWeather(data)  {
   if (deBug) console.log("Weather on device " + JSON.stringify(data));
 
   if (userSettings.units.distance == "us") {
-    temp.text =  data.temperatureF.toFixed(1) + "°f";
+    temp.text =  round(data.temperatureF) + "°f";
   }
   else {
-    temp.text = data.temperatureC.toFixed(1) + "°c";
+    temp.text = round(data.temperatureC) + "°c";
   }
   description.text = toTitleCase(data.conditions);
 
-  city.text = toTitleCase(data.name);
-  saveCity = toTitleCase(data.name);;
+  if (!versa) {
+    city.text = toTitleCase(data.name);
+    saveCity = toTitleCase(data.name);
+  }
 }
 function toTitleCase(str)
 {
@@ -127,6 +138,10 @@ function toTitleCase(str)
 clickMe.onclick = function(e) {
   if (deBug) console.log ("click");
   city.text = "Fetching KPay statistics";
+  if (versa) {
+    podate.style.display = "none";
+    podatelabel.style.display = "none";
+  }
   fetchKPay();
 }
 
@@ -363,9 +378,9 @@ document.onkeypress = function(e) {
 
 function setKPay(data) {
   var x = Number (data.balance);
-  balance.text = parseFloat(Math.round(x * 100) / 100).toFixed(2);
+  balance.text = x.toFixed(2);
   x = Number(data.nextPayout);
-  nextpo.text = parseFloat(Math.round(x * 100) / 100).toFixed(2);
+  nextpo.text = x.toFixed(2);
   if (userSettings.units.distance == "us") {
     let stringetje = data.payoutDate.substring(5,7) +
                      "-" +
@@ -378,7 +393,15 @@ function setKPay(data) {
   }
   podate.text = stringetje;
   trials.text = data.numberOfTrials;
-  city.text = saveCity;
+  if (!versa) {
+    city.text = saveCity;
+  }
+  else {
+    podate.style.display = "inline";
+    podatelabel.style.display = "inline";
+    city.text = "";
+  }
+
 }
 function setWidgetColors() {
   var i = 0;
